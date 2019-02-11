@@ -63,20 +63,27 @@ public class DynamicIntArray {
             add(number);
         }else {
             for(int i = this.index; i >= index; i--) {
-                if(i == this.array.length) {
-                    resizeAnArray();
-                }
-
-                if(i == index) {
-                    this.array[i] = number;
-                } else {
-                    this.array[i] = this.array[i-1];
-                }
+                resizeArrayIfNeeded(i);
+                shiftElementsAndInsert(index, number, i);
             }
             this.index++;
         }
 
 
+    }
+
+    private void shiftElementsAndInsert(int index, int number, int i) {
+        if(i == index) {
+            this.array[i] = number;
+        } else {
+            this.array[i] = this.array[i-1];
+        }
+    }
+
+    private void resizeArrayIfNeeded(int i) {
+        if(i == this.array.length) {
+            resizeAnArray();
+        }
     }
 
 
