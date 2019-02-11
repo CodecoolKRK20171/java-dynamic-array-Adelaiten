@@ -39,7 +39,21 @@ public class DynamicIntArray {
 
 
     public void remove(int index) {
+        if(index > this.index || index < 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        shiftArrayElements(index);
+    }
 
+    private void shiftArrayElements(int index) {
+        for(int i = index; i < this.array.length; i++) {
+            if(i == this.array.length - 1) {
+                this.array[i] = 0;
+                this.index--;
+            } else {
+                this.array[i] = this.array[i+1];
+            }
+        }
     }
 
 
