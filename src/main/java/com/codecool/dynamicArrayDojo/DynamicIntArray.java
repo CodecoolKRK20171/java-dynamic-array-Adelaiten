@@ -39,7 +39,7 @@ public class DynamicIntArray {
 
 
     public void remove(int index) {
-        if(index > this.index || index < 0) {
+        if(index >= array.length || index < 0) {
             throw new ArrayIndexOutOfBoundsException();
         }
         shiftArrayElements(index);
@@ -59,7 +59,33 @@ public class DynamicIntArray {
 
     public void insert(int index, int number) {
 
+        if(index >= this.index) {
+            add(number);
+        }else {
+            for(int i = this.index; i >= index; i--) {
+                if(i == this.array.length) {
+                    resizeAnArray();
+                }
+
+                if(i == index) {
+                    this.array[i] = number;
+                } else {
+                    this.array[i] = this.array[i-1];
+                }
+            }
+            this.index++;
+        }
+
+
     }
 
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i = 0; i < this.index; i ++) {
+            stringBuilder.append(" " + array[i]);
+        }
+        return stringBuilder.toString();
+    }
 }
